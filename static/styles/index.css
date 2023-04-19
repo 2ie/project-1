@@ -46,6 +46,37 @@ main {
     padding: 1rem;
 }
 
+#search-button {
+    background-color: #405CF5;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    color: #FFFFFF;
+
+    cursor: pointer;
+    font-size: 26px;
+    height: 52px;
+    line-height: 1.15;
+    margin: 12px 0 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0 25px;
+
+    position: relative;
+    text-align: center;
+    text-transform: none;
+
+    width: 30%;
+}
+
+#search-button:hover {
+    background-color: #697EF6;
+}
+
+a {
+    color: #5972FF;
+}
+
 #search-bar-content {
     padding: 1rem;
     background-color: #2D2D2D;
