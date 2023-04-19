@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Registration</title>
+    <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/login-register.css') }}">
 </head>
 <body>
@@ -12,13 +12,10 @@
             <div id="modal-area">
                 <form method="POST" id="left-pane">
                 <!-- <div id="left-pane"> -->
-                    <h1>Registration: </h1>
+                    <h1>Login: </h1>
                     <!-- Flashes will occur here -->
                     {% if error %}
                         <p class="error-message">{{ error }}</p>
-                    {% endif %}
-                    {% if succ %}
-                        <p class="succ-message">{{ succ }}</p>
                     {% endif %}
                     <div class="left-right-div">
                         <label for="uname">Username: </label>
@@ -28,12 +25,8 @@
                         <label for="uname">Password: </label>
                         <input type="password" name="password" id="password" placeholder="" maxlength="14">
                     </div>
-                    <div class="left-right-div">
-                        <label for="uname">Confirm password: </label>
-                        <input type="password" name="conf-password" id="conf-password" placeholder="" maxlength="14">
-                    </div>
-                    <button type="submit">Register</button>
-                    <p>Already registered? Navigate to the login page <a href="/login">here!</a></p>
+                    <button type="submit">Login</button>
+                    <p>Don't have an account? Navigate to the registration page <a href="/register">here!</a></p>
                 <!-- </div> -->
                 </form>
                 <div id="right-pane">
