@@ -135,6 +135,6 @@ def login():
     
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    return "Hello world!"
+    return render_template("index.html")
 
 app.run(debug=True)

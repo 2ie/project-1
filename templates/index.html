@@ -1,1 +1,66 @@
 <!DOCTYPE html>
+<head>
+    <title>Movie Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}">
+</head>
+<body>
+    <main>
+        <nav>
+            <h1>Movie Finder</h1>
+        </nav>
+        <div id="main-content">
+            <div id="search-bar-content">
+                <div class="left-right-div" id="left">
+                    <label for="movie-search">Movie search: </label>
+                    <input type="text" id="movie-search" placeholder="Movie title">
+                </div>
+                <div class="left-right-div" id="right">
+                    <label for="zipcode">Zipcode: </label>
+                    <input type="text" id="zipcode-input" placeholder="78745" maxlength="5">
+                </div>
+            </div>
+            <div id="showtimes-content-wrapper">
+                <div id="showtimes-information-panel">
+                    <p class="movie-title">The Super Mario Bros. Movie</p>
+                    <p>Showtimes for 04/19/2023</p>
+                    <p>Near Cedar Creek, TX:</p>
+                    <!-- <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg"> -->
+                </div>
+                <div class="showtime-result">
+                    <p><a href="#null" class="showtime-title">Hometown Cinemas Lockhart</a></p>
+                    <p>12.8 mi | 120 MLK Industrial Boulevard West, Lockhart, TX 78644</p>
+                    <div class="showtimes-available">
+                        <p class="showtimes-type-title">Standard</p>
+                        <div class="showtimes-time-wrapper">
+                            <p class="showtimes-time">4:00PM</p>
+                            <p class="showtimes-time">4:45PM</p>
+                            <p class="showtimes-time">7:00PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="showtime-result">
+                    <p><a href="#null" class="showtime-title">Film Alley Bastrop</a></p>
+                    <p>15.8 mi | 1600 Chestnut Street, Bastrop, TX 78602</p>
+                    <div class="showtimes-available">
+                        <p class="showtimes-type-title">Standard</p>
+                        <div class="showtimes-time-wrapper">
+                            <p class="showtimes-time">11:25AM</p>
+                            <p class="showtimes-time">12:00PM</p>
+                            <p class="showtimes-time">2:00PM</p>
+                            <p class="showtimes-time">4:35PM</p>
+                            <p class="showtimes-time">7:05PM</p>
+                            <p class="showtimes-time">7:35PM</p>
+                        </div>
+                    </div>
+                    <div class="showtimes-available">
+                        <p class="showtimes-type-title">3D</p>
+                        <div class="showtimes-time-wrapper">
+                            <p class="showtimes-time">2:35PM</p>
+                            <p class="showtimes-time">5:05PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
