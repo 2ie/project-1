@@ -11,8 +11,17 @@
         <div id="main-content">
             <div id="search-bar-content">
                 <div class="left-right-div" id="left">
-                    <label for="movie-search">Movie search: </label>
-                    <input type="text" id="movie-search" placeholder="Movie title">
+                    <form action="/search" method="post">
+                        <label for="movie-search">Movie search: </label>
+                        <input type="text" name="search" id="search" placeholder="Search movie title..." autocomplete="off">
+                        <div id="dropdown" class="dropdown-content">
+                            <!-- Generate the dropdown options from main_app.py -->
+                            {% for movie_title in movie_titles %}
+                                <a href="#">{{ movie_title }}</a>
+                            {% endfor %}
+                        </div>
+                        <input type="submit" value="Search">
+                    </form>
                 </div>
                 <div class="left-right-div" id="right">
                     <label for="zipcode">Zipcode: </label>

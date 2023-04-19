@@ -4,6 +4,8 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from passlib.hash import sha256_crypt
 import flask_login
+import requests
+import json
 
 app = Flask(__name__)
 
@@ -135,6 +137,45 @@ def login():
     
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    movie_titles, movie_posters, movie_ids = get_movie_details()
+    
+    return render_template("index.html",
+                                 movie_titles = movie_titles,
+                                 movie_posters = movie_posters,
+                                 movie_ids = movie_ids)
+
+def get_movie_details():
+    # Parts of the TMDB URL
+    TMDB_BASE_URL = "https://api.themoviedb.org/3"
+    TMDB_MOVIE_NOW_PLAYING_PATH = "/movie/now_playing"
+    TMDB_POSTER_PREFIX = "http://image.tmdb.org/t/p/w500/"
+
+    get_response = requests.get(
+        TMDB_BASE_URL + TMDB_MOVIE_NOW_PLAYING_PATH,
+        params={
+            "api_key": os.getenv("TMDB_API_KEY"),
+
+        },
+    )
+    # Store the TMDB JSON in a variable for later use.
+    movie_info = get_response.json()
+    # json_formatted_str = json.dumps(movie_info, indent=2)
+    
+    # Making lists to store Now Playing Data
+    movie_titles = []
+    movie_posters = []
+    movie_ids = []
+
+    # print(json_formatted_str)
+
+    # Getting now playing movie details from TMDB
+    for movie in movie_info["results"]:
+        # print(movie)
+        # print(movie["title"])
+        movie_titles.append(movie["title"])
+        movie_posters.append(TMDB_POSTER_PREFIX + movie["poster_path"])
+        movie_ids.append(movie["id"])
+
+    return movie_titles, movie_posters, movie_ids
 
 app.run(debug=True)
