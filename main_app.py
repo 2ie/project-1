@@ -7,6 +7,8 @@ import flask_login
 import requests
 import json
 
+from zipcode_to_location import zipcodeToLocation
+
 app = Flask(__name__)
 
 dotenv.load_dotenv(dotenv.find_dotenv())
