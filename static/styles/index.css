@@ -7,6 +7,26 @@
     font-family: 'Roboto', sans-serif;
 }
 
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #2D2D2D #121212;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #121212;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #2D2D2D;
+    border-radius: 2px;
+    border: 1px solid #1F1F1F;
+}
+
 body {
     color: white;
     background-color: #121212;
@@ -30,7 +50,9 @@ nav h1 {
 main {
     height: 100dvh;
     max-width: 1400px;
+    min-width: 980px;
     margin: auto;
+    overflow: auto;
     background-color: #1F1F1F;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
@@ -85,6 +107,8 @@ a {
     flex-direction: row;
     border-radius: 12px;
 
+    flex-wrap: wrap;
+
     align-items: center;
     justify-content: space-between;
 
@@ -98,11 +122,13 @@ a {
 }
 
 #left {
-    width: 70%;
+    max-width: 60%;
+    justify-content: flex-start;
 }
 
 #right {
-    width: 30%;
+    max-width: 40%;
+    justify-content: flex-end;
 }
 
 #search-bar-content input[type=text] {
@@ -219,7 +245,7 @@ a {
 /* Dropdown button on hover & focus */
 .dropbtn:hover,
 .dropbtn:focus {
-    background-color: #405CF5;
+    background-color: #697df2;
 }
 
 /* The search field */
@@ -266,4 +292,45 @@ a {
 
 .show {
     display: block;
+}
+
+input[readonly=readonly] {
+    background-color: #FFFFFF;
+    color: #000000;
+    max-width: 60%;
+    pointer-events: none;
+}
+
+#zipcode-input {
+    min-width: 110px;
+    max-width: 110px;
+}
+
+#submit-button {
+    background-color: #405CF5;
+    color: white;
+    padding: 16px;
+    font-size: 26px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+#submit-button:hover {
+    background-color: #697df2;
+}
+
+form {
+    width: 100%;
+}
+
+#error-msg {
+    width: 100%;
+    border: 2px solid #FF0000;
+    border-radius: 12px;
+    background-color: #ff5e5e;
+    text-align: center;
+    font-style: none;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

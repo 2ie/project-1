@@ -9,79 +9,66 @@
             <h1>Movie Finder</h1>
         </nav>
         <div id="main-content">
-            <div id="search-bar-content">
-                <div class="left-right-div" id="left">
-                    <!-- <form action="/search" method="post">
-                        <label for="movie-search">Movie search: </label>
-                        <input type="text" name="search" id="search" placeholder="Search movie title..." autocomplete="off">
-                        <div id="dropdown" class="dropdown-content">
-                            <!-- Generate the dropdown options from main_app.py
-                            {% for movie_title in movie_titles %}
-                                <a href="#">{{ movie_title }}</a>
-                            {% endfor %}
+            <form method="POST">
+                <div id="search-bar-content">
+                    <div class="left-right-div" id="left">
+                    <!-- From W3 Schools -->
+                        <div class="dropdown">
+                            <button type="button" onclick="myFunction()" class="dropbtn">Select a Movie</button>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                                    {% for movie_title in movie_titles %}
+                                        <a href="#" class="movie-option">{{ movie_title }}</a>
+                                    {% endfor %}
+                                </div>
                         </div>
-                        <input type="submit" value="Search" id="search-button">
-                    </form>
-                </div> -->
-
-                <!-- From W3 Schools -->
-                    <div class="dropdown">
-                        <button onclick="myFunction()" class="dropbtn">Select a Movie</button>
-                            <div id="myDropdown" class="dropdown-content">
-                                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                                {% for movie_title in movie_titles %}
-                                    <a href="#">{{ movie_title }}</a>
-                                {% endfor %}
-                            </div>
-                    </div> 
+                        <input type="text" name="selected-movie" id="selected-movie" readonly="readonly"> 
+                    </div>
+                    <!-- End W3 Schools -->
+                    <div class="left-right-div" id="right">
+                        <label for="zipcode">Zipcode: </label>
+                        <input type="text" name="zipcode-input" id="zipcode-input" placeholder="78745" maxlength="5">
+                        <button type="submit" id="submit-button">Submit</button>
+                    </div>
                 </div>
-                <!-- End W3 Schools -->
-                <div class="left-right-div" id="right">
-                    <label for="zipcode">Zipcode: </label>
-                    <input type="text" id="zipcode-input" placeholder="78745" maxlength="5">
-                </div>
-            </div>
+            </form>
             <div id="showtimes-content-wrapper">
+                {% if user_movie_query is not none %}
                 <div id="showtimes-information-panel">
-                    <p class="movie-title">The Super Mario Bros. Movie</p>
-                    <p>Showtimes for 04/19/2023</p>
-                    <p>Near Cedar Creek, TX:</p>
+                    <p class="movie-title">{{ user_movie_query }}</p>
+                    <p>Showtimes for {{ user_date }}</p>
+                    <p>Near {{ user_location }}:</p>
                     <!-- <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg"> -->
                 </div>
+                {% endif %}
+                {% if movie_showtime_data is not none %}
+                {% for theater in movie_showtime_data %}
                 <div class="showtime-result">
-                    <p><a href="#null" class="showtime-title">Hometown Cinemas Lockhart</a></p>
-                    <p>12.8 mi | 120 MLK Industrial Boulevard West, Lockhart, TX 78644</p>
+                    <p><a href="{{ theater['link'] }}" class="showtime-title">{{ theater['name'] }}</a></p>
+                    <p>{{ theater['distance'] }} | {{ theater['address'] }}</p>
+                    {% for showing in theater['showing'] %}
                     <div class="showtimes-available">
-                        <p class="showtimes-type-title">Standard</p>
+                        <p class="showtimes-type-title">{{ showing['type'] }}</p>
                         <div class="showtimes-time-wrapper">
-                            <p class="showtimes-time">4:00PM</p>
-                            <p class="showtimes-time">4:45PM</p>
-                            <p class="showtimes-time">7:00PM</p>
+                        {% for time in showing['time'] %}
+                            <p class="showtimes-time">{{ time }}</p>
+                        {% endfor %}
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                <div class="showtime-result">
-                    <p><a href="#null" class="showtime-title">Film Alley Bastrop</a></p>
-                    <p>15.8 mi | 1600 Chestnut Street, Bastrop, TX 78602</p>
-                    <div class="showtimes-available">
-                        <p class="showtimes-type-title">Standard</p>
-                        <div class="showtimes-time-wrapper">
-                            <p class="showtimes-time">11:25AM</p>
-                            <p class="showtimes-time">12:00PM</p>
-                            <p class="showtimes-time">2:00PM</p>
-                            <p class="showtimes-time">4:35PM</p>
-                            <p class="showtimes-time">7:05PM</p>
-                            <p class="showtimes-time">7:35PM</p>
-                        </div>
+                {% endfor %}
+                {% else %}
+                    {% if error_msg is not none %}
+                    <div class="showtime-result" id="error-msg">
+                        <p>{{ error_msg }}</p>
                     </div>
-                    <div class="showtimes-available">
-                        <p class="showtimes-type-title">3D</p>
-                        <div class="showtimes-time-wrapper">
-                            <p class="showtimes-time">2:35PM</p>
-                            <p class="showtimes-time">5:05PM</p>
-                        </div>
+                    {% else %}
+                    <div class="showtime-result">
+                        <p>Choose a movie by clicking on Select a Movie and then select your desired movie, then, enter a zipcode and hit submit to generate today's movie showtimes!</p>
                     </div>
-                </div>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </main>
@@ -109,5 +96,22 @@ function filterFunction() {
     }
   }
 } 
+
+// Get all movie options
+var movieOptions = document.getElementsByClassName("movie-option");
+
+// Add a click event listener to each option
+for (var i = 0; i < movieOptions.length; i++) {
+  movieOptions[i].addEventListener("click", function() {
+    // Get the text content of the clicked option
+    var selectedMovie = this.textContent;
+    
+    // Set the value of the separate textbox to the selected movie
+    document.getElementById("selected-movie").value = selectedMovie;
+    
+    // Hide the dropdown
+    document.getElementById("myDropdown").classList.remove("show");
+  });
+}
 
 </script>    

@@ -5,7 +5,7 @@ import requests
 dotenv.load_dotenv(dotenv.find_dotenv())
 
 # zipcodeToLocation is a function that given a user's zipcode input, will return a formatted location string
-def zipcodeToLocation(zipcode):
+def zipcode_to_location(zipcode):
     # The API used for this process is called Zipcodebase
     ZIPCODE_API_BASE_URL = "https://app.zipcodebase.com/api/v1/search"
 
@@ -29,4 +29,7 @@ def zipcodeToLocation(zipcode):
 
     location_string = city + ", " + state + ", United States"
 
-    print (location_string)
+    # print (location_string)
+    return (location_string)
+
+# zipcode_to_location("78602")
