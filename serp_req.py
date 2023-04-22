@@ -104,7 +104,7 @@ def get_showtime_data(user_movie_query, user_location):
 
     theater_data = results["showtimes"][0]["theaters"]
 
-    print(theater_data)
+    # print(theater_data)
     return theater_data
 
 # get_showtime_data("Super Mario Bros Movie", "Bastrop, Texas, United States")

@@ -29,7 +29,7 @@ def zipcode_to_location(zipcode):
 
     location_string = city + ", " + state + ", United States"
 
-    print (location_string)
+    # print (location_string)
     return (location_string)
 
 # zipcode_to_location("78602")

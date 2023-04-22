@@ -7,6 +7,26 @@
     font-family: 'Roboto', sans-serif;
 }
 
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #2D2D2D #121212;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #121212;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #2D2D2D;
+    border-radius: 2px;
+    border: 1px solid #1F1F1F;
+}
+
 body {
     color: white;
     background-color: #121212;
@@ -32,6 +52,7 @@ main {
     max-width: 1400px;
     min-width: 980px;
     margin: auto;
+    overflow: auto;
     background-color: #1F1F1F;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }

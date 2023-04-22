@@ -150,8 +150,6 @@ def index():
     user_date = time_obj.strftime("%m/%d/%y")
     # movie_showtime_data = get_showtime_data(user_movie_query, user_location)
     if request.method == "POST":
-        print(request.form.get("zipcode-input"))
-        print(request.form.get("selected-movie"))
         # validate that user has entered both a zipcode and selected a movie
         if (request.form.get("zipcode-input") == "" 
             or len(request.form.get("zipcode-input")) < 5
@@ -160,7 +158,9 @@ def index():
         elif (request.form.get("selected-movie") == ""):
             error_msg = "ERROR: No movie was selected, please click on Select a Movie and choose a movie!"
         else:
-            print("This submission would have succeeded!")
+            user_location = zipcode_to_location(request.form.get("zipcode-input"))
+            user_movie_query = request.form.get("selected-movie")
+            movie_showtime_data = get_showtime_data(user_movie_query, user_location)
         movie_titles, movie_posters, movie_ids = get_movie_details()
         return render_template("index.html",
                                     movie_titles = movie_titles,
