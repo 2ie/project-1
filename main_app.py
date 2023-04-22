@@ -3,11 +3,12 @@ import dotenv
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from passlib.hash import sha256_crypt
+from datetime import datetime 
 import flask_login
 import requests
-import json
 
-from zipcode_to_location import zipcodeToLocation
+from zipcode_to_location import zipcode_to_location
+from serp_req import get_showtime_data
 
 app = Flask(__name__)
 
@@ -139,12 +140,49 @@ def login():
     
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    movie_titles, movie_posters, movie_ids = get_movie_details()
+    movie_showtime_data = None
+    user_movie_query = None
+    error_msg = None
+    # user_location = None
+    # user_movie_query = "Super Mario Bros. Movie"
+    user_location = "Austin, Texas, United States"
+    time_obj = datetime.now()
+    user_date = time_obj.strftime("%m/%d/%y")
+    # movie_showtime_data = get_showtime_data(user_movie_query, user_location)
+    if request.method == "POST":
+        print(request.form.get("zipcode-input"))
+        print(request.form.get("selected-movie"))
+        # validate that user has entered both a zipcode and selected a movie
+        if (request.form.get("zipcode-input") == "" 
+            or len(request.form.get("zipcode-input")) < 5
+            or not request.form.get("zipcode-input").isdigit()):
+            error_msg = "ERROR: Zipcode submission error, please enter a valid zipcode"
+        elif (request.form.get("selected-movie") == ""):
+            error_msg = "ERROR: No movie was selected, please click on Select a Movie and choose a movie!"
+        else:
+            print("This submission would have succeeded!")
+        movie_titles, movie_posters, movie_ids = get_movie_details()
+        return render_template("index.html",
+                                    movie_titles = movie_titles,
+                                    movie_posters = movie_posters,
+                                    movie_ids = movie_ids,
+                                    movie_showtime_data = movie_showtime_data,
+                                    user_movie_query = user_movie_query,
+                                    user_date = user_date,
+                                    user_location = user_location,
+                                    error_msg = error_msg)
+    else:
+        movie_titles, movie_posters, movie_ids = get_movie_details()
     
-    return render_template("index.html",
-                                 movie_titles = movie_titles,
-                                 movie_posters = movie_posters,
-                                 movie_ids = movie_ids)
+        return render_template("index.html",
+                                    movie_titles = movie_titles,
+                                    movie_posters = movie_posters,
+                                    movie_ids = movie_ids,
+                                    movie_showtime_data = movie_showtime_data,
+                                    user_movie_query = user_movie_query,
+                                    user_date = user_date,
+                                    user_location = user_location,
+                                    error_msg = error_msg)
 
 def get_movie_details():
     # Parts of the TMDB URL
