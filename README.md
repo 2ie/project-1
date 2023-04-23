@@ -7,6 +7,7 @@ Public repo link: https://github.com/2ie/project-1
 ### Jeff's pull requests:
 1. https://github.com/2ie/project-1/pull/3
 2. https://github.com/2ie/project-1/pull/5
+
 The website can be found at this link: https://proud-sound-5508.fly.dev/
 ### 2+ examples of things you enjoyed about or learned from this project
 1. There are so many CSS styling tools that are available. Linear-gradients add a unique look to websites and are so easy to do.
