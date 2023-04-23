@@ -1,117 +1,117 @@
 <!DOCTYPE html>
-<head>
-    <title>Movie Finder</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}">
-</head>
-<body>
-    <main>
-        <nav>
-            <h1>Movie Finder</h1>
-        </nav>
-        <div id="main-content">
-            <form method="POST">
-                <div id="search-bar-content">
-                    <div class="left-right-div" id="left">
-                    <!-- From W3 Schools -->
-                        <div class="dropdown">
-                            <button type="button" onclick="myFunction()" class="dropbtn">Select a Movie</button>
-                                <div id="myDropdown" class="dropdown-content">
-                                    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                                    {% for movie_title in movie_titles %}
-                                        <a href="#" class="movie-option">{{ movie_title }}</a>
-                                    {% endfor %}
-                                </div>
+<html>
+    <head>
+        <title>Movie Finder</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}">
+    </head>
+    <body>
+        <main>
+            <nav>
+                <h1>Movie Finder</h1>
+            </nav>
+            <div id="main-content">
+                <form method="POST">
+                    <div id="search-bar-content">
+                        <div class="left-right-div" id="left">
+                            <div class="dropdown">
+                                <button type="button" onclick="myFunction()" class="dropbtn">Select a Movie</button>
+                                    <div id="myDropdown" class="dropdown-content">
+                                        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                                        {% for movie_title in movie_titles %}
+                                            <a href="#" class="movie-option">{{ movie_title }}</a>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                            <input type="text" name="selected-movie" id="selected-movie" readonly="readonly"> 
                         </div>
-                        <input type="text" name="selected-movie" id="selected-movie" readonly="readonly"> 
-                    </div>
-                    <!-- End W3 Schools -->
-                    <div class="left-right-div" id="right">
-                        <label for="zipcode">Zipcode: </label>
-                        <input type="text" name="zipcode-input" id="zipcode-input" placeholder="78745" maxlength="5">
-                        <button type="submit" id="submit-button">Submit</button>
-                    </div>
-                </div>
-            </form>
-            <div id="showtimes-content-wrapper">
-                {% if user_movie_query is not none %}
-                <div id="showtimes-information-panel">
-                    <p class="movie-title">{{ user_movie_query }}</p>
-                    <p>Showtimes for {{ user_date }}</p>
-                    <p>Near {{ user_location }}:</p>
-                    <!-- <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg"> -->
-                </div>
-                {% endif %}
-                {% if movie_showtime_data is not none %}
-                {% for theater in movie_showtime_data %}
-                <div class="showtime-result">
-                    <p><a href="{{ theater['link'] }}" class="showtime-title">{{ theater['name'] }}</a></p>
-                    <p>{{ theater['distance'] }} | {{ theater['address'] }}</p>
-                    {% for showing in theater['showing'] %}
-                    <div class="showtimes-available">
-                        <p class="showtimes-type-title">{{ showing['type'] }}</p>
-                        <div class="showtimes-time-wrapper">
-                        {% for time in showing['time'] %}
-                            <p class="showtimes-time">{{ time }}</p>
-                        {% endfor %}
+                        <div class="left-right-div" id="right">
+                            <label for="zipcode">Zipcode: </label>
+                            <input type="text" name="zipcode-input" id="zipcode-input" placeholder="78745" maxlength="5">
+                            <button type="submit" id="submit-button">Submit</button>
                         </div>
                     </div>
-                    {% endfor %}
-                </div>
-                {% endfor %}
-                {% else %}
-                    {% if error_msg is not none %}
-                    <div class="showtime-result" id="error-msg">
-                        <p>{{ error_msg }}</p>
-                    </div>
-                    {% else %}
-                    <div class="showtime-result">
-                        <p>Choose a movie by clicking on Select a Movie and then select your desired movie, then, enter a zipcode and hit submit to generate today's movie showtimes!</p>
+                </form>
+                <div id="showtimes-content-wrapper">
+                    {% if user_movie_query is not none %}
+                    <div id="showtimes-information-panel">
+                        <p class="movie-title">{{ user_movie_query }}</p>
+                        <p>Showtimes for {{ user_date }}</p>
+                        <p>Near {{ user_location }}:</p>
+                        <!-- <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg"> -->
                     </div>
                     {% endif %}
-                {% endif %}
+                    {% if movie_showtime_data is not none %}
+                    {% for theater in movie_showtime_data %}
+                    <div class="showtime-result">
+                        <p><a href="{{ theater['link'] }}" class="showtime-title">{{ theater['name'] }}</a></p>
+                        <p>{{ theater['distance'] }} | {{ theater['address'] }}</p>
+                        {% for showing in theater['showing'] %}
+                        <div class="showtimes-available">
+                            <p class="showtimes-type-title">{{ showing['type'] }}</p>
+                            <div class="showtimes-time-wrapper">
+                            {% for time in showing['time'] %}
+                                <p class="showtimes-time">{{ time }}</p>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                        {% if error_msg is not none %}
+                        <div class="showtime-result" id="error-msg">
+                            <p>{{ error_msg }}</p>
+                        </div>
+                        {% else %}
+                        <div class="showtime-result">
+                            <p>Choose a movie by clicking on Select a Movie and then select your desired movie, then, enter a zipcode and hit submit to generate today's movie showtimes!</p>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    </main>
-</body>
+        </main>
+    </body>
 
-<script>
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-function filterFunction() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
+    <script>
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
     }
-  }
-} 
 
-// Get all movie options
-var movieOptions = document.getElementsByClassName("movie-option");
+    function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+        txtValue = a[i].textContent || a[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+        } else {
+        a[i].style.display = "none";
+        }
+    }
+    } 
 
-// Add a click event listener to each option
-for (var i = 0; i < movieOptions.length; i++) {
-  movieOptions[i].addEventListener("click", function() {
-    // Get the text content of the clicked option
-    var selectedMovie = this.textContent;
-    
-    // Set the value of the separate textbox to the selected movie
-    document.getElementById("selected-movie").value = selectedMovie;
-    
-    // Hide the dropdown
-    document.getElementById("myDropdown").classList.remove("show");
-  });
-}
+    // Get all movie options
+    var movieOptions = document.getElementsByClassName("movie-option");
 
-</script>    
+    // Add a click event listener to each option
+    for (var i = 0; i < movieOptions.length; i++) {
+    movieOptions[i].addEventListener("click", function() {
+        // Get the text content of the clicked option
+        var selectedMovie = this.textContent;
+        
+        // Set the value of the separate textbox to the selected movie
+        document.getElementById("selected-movie").value = selectedMovie;
+        
+        // Hide the dropdown
+        document.getElementById("myDropdown").classList.remove("show");
+    });
+    }
+
+    </script>
+</html>   

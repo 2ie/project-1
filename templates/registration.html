@@ -1,44 +1,46 @@
 <!DOCTYPE html>
-<head>
-    <title>Registration</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/login-register.css') }}">
-</head>
-<body>
-    <main>
-        <nav>
-            <h1>Movie Finder</h1>
-        </nav>
-        <div id="main-content">
-            <div id="modal-area">
-                <form method="POST" id="left-pane">
-                <!-- <div id="left-pane"> -->
-                    <h1>Registration: </h1>
-                    <!-- Flashes will occur here -->
-                    {% if error %}
-                        <p class="error-message">{{ error }}</p>
-                    {% endif %}
-                    {% if succ %}
-                        <p class="succ-message">{{ succ }}</p>
-                    {% endif %}
-                    <div class="left-right-div">
-                        <label for="uname">Username: </label>
-                        <input type="text" name="uname" id="uname" placeholder="" maxlength="14">
+<html>
+    <head>
+        <title>Registration</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/login-register.css') }}">
+    </head>
+    <body>
+        <main>
+            <nav>
+                <h1>Movie Finder</h1>
+            </nav>
+            <div id="main-content">
+                <div id="modal-area">
+                    <form method="POST" id="left-pane">
+                    <!-- <div id="left-pane"> -->
+                        <h1>Registration: </h1>
+                        <!-- Flashes will occur here -->
+                        {% if error %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endif %}
+                        {% if succ %}
+                            <p class="succ-message">{{ succ }}</p>
+                        {% endif %}
+                        <div class="left-right-div">
+                            <label for="uname">Username: </label>
+                            <input type="text" name="uname" id="uname" placeholder="" maxlength="14">
+                        </div>
+                        <div class="left-right-div">
+                            <label for="uname">Password: </label>
+                            <input type="password" name="password" id="password" placeholder="" maxlength="14">
+                        </div>
+                        <div class="left-right-div">
+                            <label for="uname">Confirm password: </label>
+                            <input type="password" name="conf-password" id="conf-password" placeholder="" maxlength="14">
+                        </div>
+                        <button type="submit">Register</button>
+                        <p>Already registered? Navigate to the login page <a href="/login">here!</a></p>
+                    <!-- </div> -->
+                    </form>
+                    <div id="right-pane">
                     </div>
-                    <div class="left-right-div">
-                        <label for="uname">Password: </label>
-                        <input type="password" name="password" id="password" placeholder="" maxlength="14">
-                    </div>
-                    <div class="left-right-div">
-                        <label for="uname">Confirm password: </label>
-                        <input type="password" name="conf-password" id="conf-password" placeholder="" maxlength="14">
-                    </div>
-                    <button type="submit">Register</button>
-                    <p>Already registered? Navigate to the login page <a href="/login">here!</a></p>
-                <!-- </div> -->
-                </form>
-                <div id="right-pane">
                 </div>
             </div>
-        </div>
-    </main>
-</body>
+        </main>
+    </body>
+</html>
