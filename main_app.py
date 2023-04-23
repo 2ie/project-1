@@ -5,7 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 from passlib.hash import sha256_crypt
 from datetime import datetime 
 import flask_login
-#from flask_login import login_required
 import requests
 
 from zipcode_to_location import zipcode_to_location
