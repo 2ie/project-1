@@ -19,6 +19,6 @@ The website can be found at this link: https://proud-sound-5508.fly.dev/
 1. App runs on Flask server written in Python
 2. Postgres Database used to persist data
 3. REST API Integration
-4. User login w/ secure password encryption via passlib sha256 encrypt.
+4. Flask login
 ### Stretch Features
-1. User login w/ secure password encryption via passlib sha256 encrypt.
+1. User login w/ secure password encryption via `passlib sha256 encrypt`.
