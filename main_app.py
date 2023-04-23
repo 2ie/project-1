@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from passlib.hash import sha256_crypt
 from datetime import datetime 
 import flask_login
+#from flask_login import login_required
 import requests
 
 from zipcode_to_location import zipcode_to_location
@@ -39,6 +40,12 @@ def load_user(id):
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     return redirect(url_for("login"))
+
+# To fix initial 404 NOT FOUND when first navigating to website.
+# Old workaround == have user add /login to the end of the address
+@app.route('/')
+def go_to_login():
+    return redirect(url_for('login'))
 
 @app.route("/register", methods=["GET", "POST"])
 def registration():
@@ -139,16 +146,14 @@ def login():
         return render_template("login.html", error=error_msg)
     
 @app.route("/index", methods=["GET", "POST"])
+@flask_login.login_required
 def index():
     movie_showtime_data = None
     user_movie_query = None
     error_msg = None
-    # user_location = None
-    # user_movie_query = "Super Mario Bros. Movie"
     user_location = "Austin, Texas, United States"
     time_obj = datetime.now()
     user_date = time_obj.strftime("%m/%d/%y")
-    # movie_showtime_data = get_showtime_data(user_movie_query, user_location)
     if request.method == "POST":
         # validate that user has entered both a zipcode and selected a movie
         if (request.form.get("zipcode-input") == "" 
@@ -199,19 +204,14 @@ def get_movie_details():
     )
     # Store the TMDB JSON in a variable for later use.
     movie_info = get_response.json()
-    # json_formatted_str = json.dumps(movie_info, indent=2)
     
     # Making lists to store Now Playing Data
     movie_titles = []
     movie_posters = []
     movie_ids = []
 
-    # print(json_formatted_str)
-
     # Getting now playing movie details from TMDB
     for movie in movie_info["results"]:
-        # print(movie)
-        # print(movie["title"])
         movie_titles.append(movie["title"])
         movie_posters.append(TMDB_POSTER_PREFIX + movie["poster_path"])
         movie_ids.append(movie["id"])

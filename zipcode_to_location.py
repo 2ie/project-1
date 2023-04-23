@@ -22,14 +22,10 @@ def zipcode_to_location(zipcode):
     response_info = response_obj.json()
 
     zipcode_obj = response_info["results"][zipcode][0]
-    # print(zipcode_obj)
 
     city = zipcode_obj["city"]
     state = zipcode_obj["state"]
 
     location_string = city + ", " + state + ", United States"
 
-    # print (location_string)
     return (location_string)
-
-# zipcode_to_location("78602")
